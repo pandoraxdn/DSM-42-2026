@@ -49,15 +49,16 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    flexDirection: 'row-reverse'
-    //alignContent: 'center',
-    //justifyContent: 'space-evenly'
+    flexDirection: 'column-reverse',
+    alignContent: 'center',
+    justifyContent: 'space-evenly'
   },
   boxBlue: {
     //flex: 3
     backgroundColor: 'blue',
     height: 100,
-    width: 100
+    width: 100,
+    alignSelf: 'flex-start'
   },
   boxViolet: {
     //flex: 3
@@ -69,6 +70,7 @@ const style = StyleSheet.create({
     //flex: 3
     backgroundColor: 'black',
     height: 100,
-    width: 100
+    width: 100,
+    alignSelf: 'flex-end'
   }
 });
