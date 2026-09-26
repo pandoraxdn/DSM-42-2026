@@ -7,6 +7,7 @@ export const HomePokedex = () => {
 
   const { pokemonList, loadPokemon } = usePokemonPaginated();
 
+
   return(
     <View
       style={ appTheme.container }
@@ -25,7 +26,6 @@ export const HomePokedex = () => {
       <FlatList
         data={ pokemonList }
         keyExtractor={ (pokemon, index) => `${pokemon.id}${index}` }
-
         ListHeaderComponent={(
           <View
             style={{
@@ -37,20 +37,22 @@ export const HomePokedex = () => {
             <Text
               style={{
                 ...appTheme.text,
+                color: 'purple',
                 fontSize: 50,
                 fontWeight: 'bold',
                 marginBottom: 20,
                 marginTop: 20,
-                color: 'purple'
+                shadowColor: 'pink',
+                textShadowRadius: 20
               }}
             >
               Pokedex
             </Text>
           </View>
         )}
-        showsVerticalScrollIndicator={false}
-        numColumns={2}
-        renderItem={ ({item}) => (
+        showsVerticalScrollIndicator={ false }
+        numColumns={ 2 }
+        renderItem={ ( { item } ) => (
           <PokemonCard
             pokemon={ item }
           />

@@ -1,61 +1,79 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { PokemonParams } from '../../navigator/PokemonNavigator';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-import { appTheme } from '../../theme/appTheme';
+import { PokemonParams } from '../../navigator/PokemonNavigator';
 import { useTypeColorPokemon } from '../../hooks/useTypeColorPokemon';
+import { useDetailPokemon } from '../../hooks/useDetailPokemon';
+import { PokemonFull } from '../../components/PokemonFull';
 
 interface Props extends StackScreenProps<PokemonParams, 'PokemonDetail'>{};
 
 export const PokemonDetail = ( { navigation, route }:Props ) => {
 
-  const pokemon = route.params.NewPokemon;
-  const { color, isLoading } = useTypeColorPokemon(pokemon.id);
+  const data = route.params.NewPokemon;
+  const { id, name, url, image } = data;
+  const { isLoading, color } = useTypeColorPokemon(id);
+  const { detailPokemon } = useDetailPokemon(id);
 
-  return(
+  return (
     <View
       style={{ flex: 1 }}
     >
-      <View>
-        <View
-          style={{
-            ...style.leftContainer,
-            backgroundColor: (isLoading) ? 'gray': (color.length > 1) ? color[1]: color[0],
-          }}
-        />
-        <View
-          style={{
-            ...style.rightContainer,
-            backgroundColor: (isLoading) ? 'gray': color[0],
-          }}
-        />
-      </View>
-      <View>
-        <View
-          style={{
-            position: 'absolute',
-            marginHorizontal: 10
-          }}
-        >
-          <TouchableOpacity
-            onPress={ () => navigation.popToTop() }
-          >
-            <View>
-              <Text
-                style={ style.name }
-              >
-                { `<- ${pokemon.name} \n #${pokemon.id}` }
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
+      <View
+        style={{ flex: 2, alignItems: 'center' }}
+      >
+        <View style={{
+          ...style.leftContainer,
+          backgroundColor: (isLoading) ? 'gray' : (color.length > 1) ? color[1] : color[0]
+        }}/>
+
+        <View style={{
+          ...style.rightContainer,
+          backgroundColor: (isLoading) ? 'gray' : color[0]
+        }}/>
+        
         <Image
-          style={ style.pokeball }
           source={ require('./../../../assets/pokeball-light.png') }
-        /> 
+          style={ style.pokeball }
+        />
+
         <Image
+          source={{ uri: image }}
           style={ style.pokemon }
-          source={{ uri:  pokemon.image }}
-        /> 
+        />
+
+        <TouchableOpacity
+          onPress={ () => navigation.goBack() }
+        >
+          <View
+            style={ style.arrowBtn }
+          >
+            <Text
+              style={ style.text }
+            >
+              {`<- #${id}`}
+              {`\n${name}`}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+
+      <View
+        style={{ flex: 2 }}
+      >
+        {
+          (!detailPokemon) ? (
+            <ActivityIndicator
+              size={100}
+              color={color[0]}
+            />
+          ) :
+          (
+            <PokemonFull
+              pokemon={ detailPokemon }
+              types={ color }
+            />
+          )
+        }
       </View>
     </View>
   );
@@ -63,42 +81,57 @@ export const PokemonDetail = ( { navigation, route }:Props ) => {
 
 const style = StyleSheet.create({
   leftContainer: {
-    position: 'absolute',
-    left: 0,
-    height: 370,
-    width: "50%",
-    backgroundColor: 'pink',
+    //borderTopLeftRadius: 1000,
+    backgroundColor: 'gray',
     borderBottomLeftRadius: 1000,
-    //borderTopLeftRadius: 1000
+    height: "100%",
+    left: 0,
+    position: 'absolute',
+    top: 0,
+    width: "50%"
   },
   rightContainer: {
+    //borderBottomRightRadius: 1000,
+    backgroundColor: 'pink',
+    borderTopRightRadius: 1000,
+    height: "100%",
     position: 'absolute',
     right: 0,
-    height: 370,
-    width: "50%",
-    backgroundColor: 'violet',
-    borderBottomRightRadius: 1000,
-    //borderTopRightRadius: 1000
+    top: 0,
+    width: "50%"
   },
   pokeball: {
-    alignSelf: 'center',
     height: 300,
-    opacity: 0.7,
+    width: 300,
     position: 'absolute',
     top: 30,
-    width: 300
+    opacity: 0.7,
   },
   pokemon: {
     height: 240,
     width: 240,
-    marginTop: 50,
-    alignSelf: 'center'
+    position: 'absolute',
+    top: 60,
   },
-  name: {
-    color: 'white',
+  arrowBtn: {
+    left: -180,
+    top: 0,
+    position: 'absolute',
+  },
+  headerContainer: {
+    alignItems: 'center',
+    height: 370,
+    zIndex: 999,
+  },
+  text: {
     fontSize: 25,
-    fontWeight: 'bold',
-    marginTop: 30,
-    textAlign: 'center'
+    color: 'white',
+    fontWeight: 'bold'
   },
+  containerBottom: {
+    top: 370,
+    height: 500,
+    width: "100%",
+    position: 'absolute'
+  }
 });

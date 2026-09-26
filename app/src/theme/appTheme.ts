@@ -12,5 +12,16 @@ export const appTheme = StyleSheet.create({
     color: 'rgba(190, 39, 245, 0.9)',
     textAlign: 'center',
     fontWeight: 'bold'
+  },
+  textInput: {
+    fontSize: 25,
+    backgroundColor: 'pink',
+    textAlign: 'center',
+    width: 350,
+    height: 40,
+    borderRadius: 10,
+    borderWidth: 5,
+    borderColor: 'violet',
+    marginTop: 10
   }
 });
