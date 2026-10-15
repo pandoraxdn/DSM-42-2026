@@ -8,7 +8,7 @@ import { UsersController } from './users.controller.js';
   imports: [
     TypeOrmModule.forFeature([
       User
-    ])
+    ],"postgres-connection"),
   ],
   controllers: [UsersController],
   providers: [UsersService],

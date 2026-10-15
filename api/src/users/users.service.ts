@@ -9,7 +9,7 @@ import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository( User )
+    @InjectRepository( User, "postgres-connection")
     private userRepository: Repository<User>
   ){}
 

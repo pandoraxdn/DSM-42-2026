@@ -15,6 +15,9 @@ export class User {
   @Column()
   password: string;
 
+  @Column()
+  location: string;
+
   @Column({ type: 'text' })
   image: string;
 

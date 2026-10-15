@@ -16,6 +16,11 @@ export class CreateUserDto {
   password: string;
 
   @IsString()
+  @MaxLength(255)
+  @MinLength(5)
+  location: string;
+
+  @IsString()
   image: string;
 
   @IsDateString()
