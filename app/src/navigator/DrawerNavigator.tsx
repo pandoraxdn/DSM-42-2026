@@ -1,14 +1,20 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { StackNavigator } from "./StackNavigator";
-import { PokemonNavigator } from "./PokemonNavigator";
-import { useWindowDimensions } from "react-native";
 import { DrawerMenu } from "../components/DrawerMenu";
 import { FormScreen } from "../screens/FormScreen";
+import { ImagePickerScreen } from "../screens/ImagePickerScreen";
+import { LocationScreen } from "../screens/LocationScreen";
+import { PokemonNavigator } from "./PokemonNavigator";
+import { useWindowDimensions } from "react-native";
+import { UserStackNavigator } from "./UserStackNavigator";
 
 export type RootDrawerParams = {
-  StackNavigator: undefined;
-  PokemonNavigator: undefined;
-  FormScreen: undefined;
+  FormScreen:         undefined;
+  ImagePickerScreen:  undefined;
+  LocationScreen:     undefined;
+  PokemonNavigator:   undefined;
+  StackNavigator:     undefined;
+  UserStackNavigator: undefined;
 }
 
 const Drawer = createDrawerNavigator<RootDrawerParams>();
@@ -20,7 +26,7 @@ export const DrawerNavigator = () => {
 
   return (
     <Drawer.Navigator
-      initialRouteName='PokemonNavigator'
+      initialRouteName='UserStackNavigator'
       screenOptions={{
         headerShown: true,
         drawerType: width > 720 ? 'permanent': 'front',
@@ -44,6 +50,18 @@ export const DrawerNavigator = () => {
       <Drawer.Screen
         name='FormScreen'
         component={FormScreen}
+      />
+      <Drawer.Screen
+        name='ImagePickerScreen'
+        component={ImagePickerScreen}
+      />
+      <Drawer.Screen
+        name='LocationScreen'
+        component={LocationScreen}
+      />
+      <Drawer.Screen
+        name='UserStackNavigator'
+        component={UserStackNavigator}
       />
     </Drawer.Navigator>
   );

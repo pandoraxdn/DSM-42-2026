@@ -18,7 +18,7 @@ export const appTheme = StyleSheet.create({
     backgroundColor: 'pink',
     textAlign: 'center',
     width: 350,
-    height: 40,
+    height: 50,
     borderRadius: 10,
     borderWidth: 5,
     borderColor: 'violet',

@@ -63,6 +63,21 @@ export const DrawerMenu = ( { navigation }: DrawerContentComponentProps ) => {
           action={ () => navigation.navigate('FormScreen') }
         />
 
+        <BtnMenu
+          text="ImagePickerScreen"
+          action={ () => navigation.navigate('ImagePickerScreen') }
+        />
+
+        <BtnMenu
+          text="Localización"
+          action={ () => navigation.navigate('LocationScreen') }
+        />
+
+        <BtnMenu
+          text="Gestión de Usuarios"
+          action={ () => navigation.navigate('UserStackNavigator') }
+        />
+
         </View>
       </View>
     </DrawerContentScrollView>
