@@ -24,9 +24,9 @@
     "plugins": [
       [
         "expo-location",
-          {
-            "locationAlwaysAndWhenInUsePermission": "La aplicación necesita tu ubicación."
-          }
+        {
+          "locationAlwaysAndWhenInUsePermission": "La aplicación necesita tu ubicación."
+        }
       ],
       [
         "expo-file-system",
@@ -57,7 +57,8 @@
           "recordAudioAndroid": true,
           "barcodeScannerEnabled": true
         }
-      ]
+      ],
+      "expo-status-bar"
     ]
   }
 }

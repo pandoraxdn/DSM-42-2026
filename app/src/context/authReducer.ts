@@ -30,7 +30,7 @@ export const authReducer = ( state: AuthState, action: Actions ) => {
     case 'changeAvatar':
       return {
         ...state,
-        username: action.payload,
+        avatar: action.payload,
     }
   }
 

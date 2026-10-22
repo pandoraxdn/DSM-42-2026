@@ -1,5 +1,8 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet} from "react-native";
 import { DrawerContentScrollView, DrawerContentComponentProps } from "@react-navigation/drawer";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { BtnTouch } from "./BtnTouch";
 
 interface BtnProps {
   action: () => void;
@@ -26,6 +29,8 @@ const BtnMenu = ( { action, text }:BtnProps ) => {
 
 export const DrawerMenu = ( { navigation }: DrawerContentComponentProps ) => {
 
+  const { authState, logout } = useContext( AuthContext );
+
   return (
     <DrawerContentScrollView>
       <View
@@ -36,14 +41,28 @@ export const DrawerMenu = ( { navigation }: DrawerContentComponentProps ) => {
         >
           <Image
             style={ style.avatar }
-            source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkeEo_JMBF7RZeBZEZdlDMuV7Eyp6Xt1YlNGG0UrUWhyys3bmgGb9SIUs&s=10' }}
+            source={
+              (authState.isLoggedIn) ?
+              {uri: `data:image/png;base64,${authState.avatar}` }
+              :
+              { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkeEo_JMBF7RZeBZEZdlDMuV7Eyp6Xt1YlNGG0UrUWhyys3bmgGb9SIUs&s=10' }
+            }
           />
         </View>
         <Text
           style={ style.username }
         >
-          User: Pandora
+          User: { authState.username }
         </Text>
+        {
+          (authState.isLoggedIn) && (
+            <BtnTouch
+              title="Cerrar sesión"
+              color="red"
+              onPress={ () => logout() }
+            />
+          ) 
+        }
         <View
           style={ style.container }
         >
@@ -76,6 +95,11 @@ export const DrawerMenu = ( { navigation }: DrawerContentComponentProps ) => {
         <BtnMenu
           text="Gestión de Usuarios"
           action={ () => navigation.navigate('UserStackNavigator') }
+        />
+
+        <BtnMenu
+          text="Login"
+          action={ () => navigation.navigate('LoginUser') }
         />
 
         </View>
