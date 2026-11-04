@@ -52,4 +52,13 @@ export class SensorsController {
     )
     return { datos_ingresados: lecturas.length };
   }
+
+  @Get('consultas/data')
+  async data() {
+    return await this.sensorsService.data();
+  }
 }
+
+
+
+
