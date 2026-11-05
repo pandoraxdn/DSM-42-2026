@@ -102,6 +102,11 @@ export const DrawerMenu = ( { navigation }: DrawerContentComponentProps ) => {
           action={ () => navigation.navigate('LoginUser') }
         />
 
+        <BtnMenu
+          text="Dashboard"
+          action={ () => navigation.navigate('DataResponseScreen') }
+        />
+
         </View>
       </View>
     </DrawerContentScrollView>

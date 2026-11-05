@@ -10,6 +10,7 @@ import { StackNavigator } from "./StackNavigator";
 import { useContext } from "react";
 import { UserStackNavigator } from "./UserStackNavigator";
 import { useWindowDimensions } from "react-native";
+import { DataResponseScreen } from "../screens/DataResponseScreen";
 
 export type RootDrawerParams = {
   FormScreen:         undefined;
@@ -19,6 +20,7 @@ export type RootDrawerParams = {
   StackNavigator:     undefined;
   UserStackNavigator: undefined;
   LoginUser:          undefined;
+  DataResponseScreen: undefined;
 }
 
 const Drawer = createDrawerNavigator<RootDrawerParams>();
@@ -71,6 +73,10 @@ const Navigator = () => {
         name='LoginUser'
         component={LoginUser}
       />
+      <Drawer.Screen
+        name='DataResponseScreen'
+        component={DataResponseScreen}
+      />
     </Drawer.Navigator>
   );
 }
@@ -78,5 +84,5 @@ const Navigator = () => {
 export const DrawerNavigator = () => {
   const { authState } = useContext( AuthContext );
 
-  return ( authState.isLoggedIn ) ? <Navigator /> : <LoginUser />;
+  return ( !authState.isLoggedIn ) ? <Navigator /> : <LoginUser />;
 }
